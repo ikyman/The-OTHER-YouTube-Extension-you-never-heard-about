@@ -1,0 +1,21 @@
+{
+	"name": "No more million plus",
+	"manifest_version": 4,
+	"version": "0.2",
+	"description": "Fiddling with autoplay was too hard. Instead, I'll nix any 'x in y minutes or less'",
+	"permissions":[
+		"activeTab","webNavigation","tabs"
+	],
+
+	"content_scripts":[{
+		"matches":["*://*.youtube.com/*"],
+		"js":["less_than_a_million.js"],
+		"run_at": "document_idle"
+	}],
+
+
+	"host_permissions": [
+    	"*://www.youtube.com/*"
+	]
+
+}
