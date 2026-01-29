@@ -3,7 +3,16 @@ console.log("=== YouTube Anti-Clickbait Extension LOADED ===");
 const uglyify = (ytVideo) => {
 	ytVideo.style.backgroundColor = 'darkolivegreen';
 	const thumbnails = ytVideo.getElementsByClassName("yt-lockup-view-model__content-image");
+	if (thumbnails.length !== 1){
+		console.error("Assuption off! I thought Each youtube video had only a single thumbnail!")
+		console.log(thumbnails);
+		return;
+	}
+
+	let timestamp;
 	for (const thumbnail of thumbnails){
+		timestamp = thumbnail.getElementsByTagName("yt-thumbnail-badge-view-model")[0];
+		thumbnail.before(timestamp);
 		thumbnail.remove();
 	}
 }
@@ -26,10 +35,8 @@ const inXMinutesOrLess = (videoTitleAllCaps) => {
 
 	const regEx = "IN (LESS THAN|FEWER THAN|UNDER|\\s*)" + "\\s*" + "[1-9][0-9]*" + "\\s*" + uotRegexString + "\\s*" + "(OR LESS|OR FEWER|OR UNDER|\\s*)";
 
-	//How to prevent "in 9 minutes" from triggering: We don't. From cursory (2 minute) reaserch, "in 9 minutes" is the same as "in 9 minutes or less".
+	//How to prevent "in 9 minutes" from triggering: We don't. From cursory (2 minute) research, "in 9 minutes" is the same as "in 9 minutes or less".
 	return (videoTitleAllCaps.search(regEx) != -1)
-	// Note "In 60 Seconds Your Pet Becomes a Monster or Handsome Man - Homegrown Pet" Gets caught.
-	// In this particular situation, yeah, sure, no problem. But it's not what I'm aiming to catch!
 }
 
 // Callback function to execute when mutations are observed
@@ -41,19 +48,19 @@ const punishNaughtyClickbait = (mutationsList, observer) => {
 			}
 			//const textContainer = ytRec.getElementsByClassName("yt-lockup-metadata-view-model__text-container"); <= May be useful to keep track of; has both the title information, the channel name, and view count.
 			const textContainer = ytRec.getElementsByClassName("yt-lockup-metadata-view-model__heading-reset");
-			console.log(textContainer)
 			if (textContainer.length !== 1){
 				console.error("Assuption off! I thought I was only dealing with on Youtube Video at a time!!")
+				console.log(textContainer);
 				return;
 			}
 	  		const titleSpans= textContainer[0].getElementsByTagName("span");
 			if (titleSpans.length !== 1){
 				console.error("Assuption off! More than 1 span in a Thumbnail!")
+				console.log(titleSpans);
 				return;
 			}
 	  		const videoTitle = titleSpans[0].innerHTML;
 	  		const allCapsTitle= videoTitle.toUpperCase();
-			console.log(allCapsTitle);
 
 			let shouldBePunished = false;
 			shouldBePunished = shouldBePunished || inXMinutesOrLess(allCapsTitle)

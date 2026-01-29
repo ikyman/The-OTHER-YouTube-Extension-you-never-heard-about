@@ -4,7 +4,7 @@
 	"version": "0.2",
 	"description": "Fiddling with autoplay was too hard. Instead, I'll nix any 'x in y minutes or less'",
 	"permissions":[
-		"activeTab","webNavigation","tabs"
+		"activeTab","webNavigation","tabs","storage"
 	],
 
 	"content_scripts":[{
