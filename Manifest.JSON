@@ -13,9 +13,12 @@
 		"run_at": "document_idle"
 	}],
 
-
 	"host_permissions": [
     	"*://www.youtube.com/*"
-	]
+	],
 
+	"background":{
+		"service_worker": "count_time_saved.js",
+		"persistent":true
+	}
 }

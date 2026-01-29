@@ -41,6 +41,12 @@ const inXMinutesOrLess = (videoTitleAllCaps) => {
 	return (videoTitleAllCaps.search(regEx) != -1)
 }
 
+const dotdotdot = (videoTitleAllCaps)=>{
+	const regEx = "\\.\\.\\.|\u{1F600}";
+
+	return (videoTitleAllCaps.search(regEx) != -1)
+}
+
 // Callback function to execute when mutations are observed
 const punishNaughtyClickbait = (mutationsList, observer) => {
 	for (const mutation of mutationsList) {
@@ -65,9 +71,22 @@ const punishNaughtyClickbait = (mutationsList, observer) => {
 	  		const allCapsTitle= videoTitle.toUpperCase();
 
 			let shouldBePunished = false;
-			shouldBePunished = shouldBePunished || inXMinutesOrLess(allCapsTitle)
+			shouldBePunished = shouldBePunished || inXMinutesOrLess(allCapsTitle);
+
+			shouldBePunished = shouldBePunished || dotdotdot(allCapsTitle);
 
 			if (shouldBePunished){
+				let timestamp = ytRec.getElementsByTagName("yt-thumbnail-badge-view-model")[0].getElementsByTagName("div")[0];
+				const timestamp_list = timestamp.textContent.split(":")
+				let video_length = timestamp_list.at(-2);
+				if (timestamp_list.length ===3) {
+					video_length += timestamp_list.at(-3)*60
+				}
+
+				chrome.runtime.sendMessage({ punished_video: titleSpans[0].parentElement.href, minute_length: video_length }, (response) => {
+    				console.log("Response from background:", response);
+				});
+
 				uglyify(ytRec);
 			}
 		}
@@ -109,6 +128,7 @@ if (document.readyState === 'loading') {
 } else {
 	addAntiClickbaitObserver();
 }
+
 
 
 
