@@ -13,6 +13,8 @@ const uglyify = (ytVideo) => {
 	for (const thumbnail of thumbnails){
 		timestamp = thumbnail.getElementsByTagName("yt-thumbnail-badge-view-model")[0];
 		thumbnail.before(timestamp);
+		timestamp.style.display = "flex";
+		timestamp.style.alignItems = "center";
 		thumbnail.remove();
 	}
 }
