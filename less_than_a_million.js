@@ -78,12 +78,14 @@ const punishNaughtyClickbait = (mutationsList, observer) => {
 			if (shouldBePunished){
 				let timestamp = ytRec.getElementsByTagName("yt-thumbnail-badge-view-model")[0].getElementsByTagName("div")[0];
 				const timestamp_list = timestamp.textContent.split(":")
-				let video_length = timestamp_list.at(-2);
+				let video_length = +timestamp_list.at(-2);
 				if (timestamp_list.length ===3) {
-					video_length += timestamp_list.at(-3)*60
+					video_length += +timestamp_list.at(-3)*60;
 				}
 
-				chrome.runtime.sendMessage({ punished_video: titleSpans[0].parentElement.href, minute_length: video_length }, (response) => {
+				const corrected_punished_url = titleSpans[0].parentElement.href.split("&")[0]
+
+				chrome.runtime.sendMessage(`{"suggested_by": "${window.location.href}", "punished_video": "${corrected_punished_url}", "minute_length": "${video_length}"}`, (response) => {
     				console.log("Response from background:", response);
 				});
 
