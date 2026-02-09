@@ -10,7 +10,7 @@ const colourizeVideo = (ytVideo, colour) => {
 }
 
 const dotdotdot = (videoTitleAllCaps)=>{
-	const regEx = "\\.\\.\\.|\u{1F600}";
+	const regEx = "\\.\\.\\.|\u{2026}";
 
 	return (videoTitleAllCaps.search(regEx) != -1)
 }
@@ -38,7 +38,7 @@ const punishNaughtyClickbait = (mutationsList, observer) => {
 			let shouldBePunished = false;
 			shouldBePunished = shouldBePunished || xMinPattern.hasPattern(ytRec.title_elem);
 
-			shouldBePunished = shouldBePunished || dotdotdot(allCapsTitle);
+			shouldBePunished = shouldBePunished || dot3Pattern.hasPattern(ytRec.title_elem);
 
 			if (shouldBePunished){
 				const video_length = ytRec.getVideoLength()
@@ -85,7 +85,8 @@ function addAntiClickbaitObserver(){
 }
 
 // Run when DOM is ready
-const xMinPattern = new inXMinutesOrLess()
+const xMinPattern = new inXMinutesOrLess();
+const dot3Pattern = new dotDotDot();
 if (document.readyState === 'loading') {
 	document.addEventListener('DOMContentLoaded', addAntiClickbaitObserver);
 } else {

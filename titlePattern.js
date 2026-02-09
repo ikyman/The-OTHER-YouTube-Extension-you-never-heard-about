@@ -36,3 +36,10 @@ class inXMinutesOrLess extends abstract_TitlePattern{
         this.regEx = "IN (LESS THAN|FEWER THAN|UNDER|\\s*)" + "\\s*" + "[1-9][0-9]*" + "\\s*" + uotRegexString + "\\s*" + "(OR LESS|OR FEWER|OR UNDER|\\s*)";
     }
 }
+
+class dotDotDot extends abstract_TitlePattern{
+    constructor(){
+        super()
+        this.regEx = "\\.\\.\\.|\u{2026}";
+    }
+}
