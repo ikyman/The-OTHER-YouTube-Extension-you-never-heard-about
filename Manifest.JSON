@@ -1,6 +1,6 @@
 {
-	"name": "No more million plus",
-	"manifest_version": 4,
+	"name": "Youtube Algorithm filtering.",
+	"manifest_version": 2,
 	"version": "0.2",
 	"description": "Fiddling with autoplay was too hard. Instead, I'll nix any 'x in y minutes or less'",
 	"permissions":[
@@ -9,7 +9,7 @@
 
 	"content_scripts":[{
 		"matches":["*://*.youtube.com/*"],
-		"js":["less_than_a_million.js"],
+		"js":["titlePattern.js","recommendedVideo.js","youtube_anti_clickbait.js"],
 		"run_at": "document_idle"
 	}],
 
