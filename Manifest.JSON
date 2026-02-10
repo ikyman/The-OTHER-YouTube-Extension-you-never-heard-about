@@ -1,6 +1,6 @@
 {
 	"name": "Youtube Algorithm filtering.",
-	"manifest_version": 2,
+	"manifest_version": 3,
 	"version": "0.2",
 	"description": "Fiddling with autoplay was too hard. Instead, I'll nix any 'x in y minutes or less'",
 	"permissions":[
@@ -18,7 +18,6 @@
 	],
 
 	"background":{
-		"service_worker": "count_time_saved.js",
-		"persistent":true
+		"service_worker": "count_time_saved.js"
 	}
 }
