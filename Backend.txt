@@ -1,5 +1,0 @@
-Looks like AWS Lambda is the service for this: It, apperently, only gets triggered upon actually getting an HTTP Request.
-
-As for language, Python. (I no longer have Matlab, and that's extra work anyways).
-
-For storage: I'm only storing one number (the number of minutes). This can be stored in DynamoDB, which Should also be free, it looks like
