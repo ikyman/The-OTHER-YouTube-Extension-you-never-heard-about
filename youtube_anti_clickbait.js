@@ -40,6 +40,8 @@ const punishNaughtyClickbait = (mutationsList, observer) => {
 
 			shouldBePunished = shouldBePunished || dot3Pattern.hasPattern(ytRec.title_elem);
 
+			shouldBePunished = shouldBePunished || howWhyPattern.hasPattern(ytRec.title_elem);
+
 			if (shouldBePunished){
 				const video_length = ytRec.getVideoLength()
 
@@ -87,6 +89,7 @@ function addAntiClickbaitObserver(){
 // Run when DOM is ready
 const xMinPattern = new inXMinutesOrLess();
 const dot3Pattern = new dotDotDot();
+const howWhyPattern = new howWhy();
 if (document.readyState === 'loading') {
 	document.addEventListener('DOMContentLoaded', addAntiClickbaitObserver);
 } else {

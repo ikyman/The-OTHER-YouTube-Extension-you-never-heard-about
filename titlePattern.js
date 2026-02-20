@@ -45,3 +45,10 @@ class dotDotDot extends abstract_TitlePattern{
         this.regEx = "\\.\\.\\.|\u{2026}";
     }
 }
+
+class howWhy extends abstract_TitlePattern{
+    constructor(){
+        super()
+        this.regEx = "(HOW|WHY)+\\s+";
+    }
+}
