@@ -2,14 +2,11 @@ class abstract_TitlePattern{
     findPattern(text_span){
         const videoTitle = text_span.innerHTML;
 	  	const allCapsTitle= videoTitle.toUpperCase();
-        console.log(allCapsTitle);
-        console.log(this.regEx)
         return allCapsTitle.search(this.regEx);
     }
 
     hasPattern(text_span){
         return ( this.findPattern(text_span) !== -1)
-
     }
 
     removePattern(text_span){
@@ -50,5 +47,9 @@ class howWhy extends abstract_TitlePattern{
     constructor(){
         super()
         this.regEx = "(HOW|WHY)+\\s+";
+    }
+    hasPattern(text_span){
+        return ( this.findPattern(text_span) === 0)
+
     }
 }
