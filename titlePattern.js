@@ -1,8 +1,17 @@
 class abstract_TitlePattern{
+    constructor(){
+        this.query_settings();
+    }
+
     findPattern(text_span){
         const videoTitle = text_span.innerHTML;
 	  	const allCapsTitle= videoTitle.toUpperCase();
         return allCapsTitle.search(this.regEx);
+    }
+
+    query_settings(){
+        chrome.runtime.sendMessage(`"request_type":"get_pattern_settings", "pattern_name":"${this.constructor.name}" `)
+        .then((sw_response) => {this.punishment_settings = sw_response}); 
     }
 
     hasPattern(text_span){
@@ -10,7 +19,6 @@ class abstract_TitlePattern{
     }
 
     removePattern(text_span){
-
 
     }
 }
@@ -50,6 +58,5 @@ class howWhy extends abstract_TitlePattern{
     }
     hasPattern(text_span){
         return ( this.findPattern(text_span) === 0)
-
     }
 }
