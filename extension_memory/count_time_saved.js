@@ -84,3 +84,5 @@ class time_saved_tracker{
 	}
 }
 
+
+export {time_saved_tracker}

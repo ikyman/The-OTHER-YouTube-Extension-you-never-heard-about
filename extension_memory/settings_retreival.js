@@ -19,5 +19,6 @@ class extension_setting_service{
         }
         return this.pattern_settings[prototype_name];
     }
-
 }
+
+export {extension_setting_service}

@@ -18,6 +18,8 @@
 	],
 
 	"background":{
-		"service_worker": "count_time_saved.js"
-	}
+		"service_worker": "extension_memory/ytac_service_worker.js",
+		"type": "module"
+	},
+	"options_page": "extension_options.html"
 }
