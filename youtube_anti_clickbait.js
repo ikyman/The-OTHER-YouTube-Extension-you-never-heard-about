@@ -66,7 +66,7 @@ function addAntiClickbaitObserver(){
 	/* Copied from https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver, 
 	 * which in turn was copied from a blog-post
 	 */
-	const recommendationsList = document.querySelector("#items.ytd-watch-next-secondary-results-renderer");
+	const recommendationsList = document.querySelector("#items.ytd-watch-next-secondary-results-renderer #contents");
 	
 	if (!recommendationsList) {
 		console.log("Recommendations list not found, retrying...");

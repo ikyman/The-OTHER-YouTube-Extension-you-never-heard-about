@@ -3,7 +3,7 @@
 class RecommendedVideo {
     constructor (yt_lockup_view_model){
         this.yt_lockup_view_model = yt_lockup_view_model;
-        const thumbnails = this.yt_lockup_view_model.querySelectorAll(".yt-lockup-view-model__content-image .ytLockupViewModelContentImage");
+        const thumbnails = this.yt_lockup_view_model.querySelectorAll(".yt-lockup-view-model__content-image, .ytLockupViewModelContentImage");
         if (thumbnails.length !== 1){
             console.error("Assuption off! I thought Each youtube video had only a single thumbnail!")
             console.log(thumbnails);
@@ -12,7 +12,7 @@ class RecommendedVideo {
         this.thumbnail_elem = thumbnails[0];
         this.timestamp_elem = this.thumbnail_elem.getElementsByTagName("yt-thumbnail-badge-view-model")[0];
 
-        const textContainer = this.yt_lockup_view_model.querySelectorAll(".yt-lockup-metadata-view-model__heading-reset .ytLockupMetadataViewModelHeadingReset");
+        const textContainer = this.yt_lockup_view_model.querySelectorAll(".yt-lockup-metadata-view-model__heading-reset, .ytLockupMetadataViewModelHeadingReset");
         if (textContainer.length !== 1){
             console.error("Assumption off! I thought I was only dealing with on Youtube Video at a time!!")
             console.log(textContainer);
