@@ -1,3 +1,10 @@
+(async () => {
+	const src = chrome.extension.getURL('./recommendedVideo.js');
+	const contentScript = await import(src);
+	contentScript.main();
+})(); // https://medium.com/@otiai10/how-to-use-es6-import-with-chrome-extension-bd5217b9c978 
+// The above was not a Joke, as the medium link can tell you. Didn't work, though.
+
 const removeThumbnail = (ytRec)=>{
 	ytRec.thumbnail_elem.before(ytRec.timestamp_elem)
 	ytRec.timestamp_elem.style.display = "flex";
@@ -28,6 +35,8 @@ const punishNaughtyClickbait = (mutationsList, observer) => {
 			if (!ytRec.isComplete()){
 				continue;
 			}
+
+			let thumbPunishment = new punishmentTracker();
 
 			console.log(ytRec.title_elem)
 			console.log(ytRec.title_elem.innerHTML)
