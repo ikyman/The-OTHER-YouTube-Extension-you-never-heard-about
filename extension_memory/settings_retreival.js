@@ -1,13 +1,11 @@
-const DEFAULT_PATTERN_SETTINGS = {
-    highlight_colour : null,
-    remove_pattern : false,
-    colourize_points : NaN,
-    thumbnail_removal_points : NaN
-}
-
+//import { DEFAULT_PATTERN_SETTINGS } from "../PunishmentTracker";
 
 class extension_setting_service{
     constructor(){
+        if (extension_setting_service.instance) {
+            return extension_setting_service.instance;
+        }
+        extension_setting_service.instance = this;
         chrome.storage.local.get("punishment_settings").then( (punish_settings) =>{
             this.pattern_settings = punish_settings["patterns"];
             this.channel_settings = punish_settings["channels"];
@@ -15,10 +13,17 @@ class extension_setting_service{
     }
     getSettingsForPattern(prototype_name){
         if (!this.pattern_settings[prototype_name]){
-            throw "Save setting Not Yet Implemented. When Implemented, Call Default Patterns and Save."
+            this.setSettingsForPattern(prototype_name, DEFAULT_PATTERN_SETTINGS);
         }
         return this.pattern_settings[prototype_name];
     }
+
+    setSettingsForPattern(prototype_name, pattern_settings){
+        this.pattern_settings[prototype_name] = pattern_settings;
+        chrome.storage.local.set({"punishment_settings" : this.pattern_settings });
+    }
 }
 
-export {extension_setting_service}
+const extension_setting_service_singleton = new extension_setting_service();
+
+export { extension_setting_service_singleton as esss }
